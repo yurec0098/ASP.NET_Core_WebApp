@@ -2,11 +2,11 @@
 {
 	public class PostModel
 	{
-		public override string ToString() => $"{userId}\n{id}\n{title}\n{body}\n";
+		public override string ToString() => $"{UserId}\n{Id}\n{Title}\n{Body}\n";
 
-		public uint userId { get; set; }
-		public uint id { get; set; }
-		public string title { get; set; }
-		public string body { get; set; }
+		public uint UserId { get; set; }
+		public uint Id { get; set; }
+		public string Title { get; set; } = string.Empty;
+		public string Body { get; set; } = string.Empty;
 	}
 }

@@ -28,7 +28,11 @@ namespace Lesson_1
 			if (response.IsSuccessStatusCode)
 			{
 				await using var responseStream = await response.Content.ReadAsStreamAsync();
-				if(await JsonSerializer.DeserializeAsync<PostModel>(responseStream, new JsonSerializerOptions(JsonSerializerDefaults.Web)) is PostModel post)
+				var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+				{
+					PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+				};
+				if (await JsonSerializer.DeserializeAsync<PostModel>(responseStream, options) is PostModel post)
 					return post;
 				else
 					throw new Exception($"Error content");
