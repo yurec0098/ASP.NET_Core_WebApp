@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Timesheets.Storage\Timesheets.Storage.csproj" />
   </ItemGroup>
 
 </Project>

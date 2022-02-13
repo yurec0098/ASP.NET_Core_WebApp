@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32127.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson_1", "Lesson_1\Lesson_1\Lesson_1.csproj", "{9BA68ABD-893F-46B1-96A8-B6A312C0B8CF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Timesheets", "Timesheets", "{352FFBE1-A251-4908-B19E-F29BC0F42EFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.WebApi", "Timesheets\Timesheets.WebApi\Timesheets.WebApi.csproj", "{32C7FBB1-4273-4751-B44F-BFE23372AFCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Timesheets.WebApi", "Timesheets\Timesheets.WebApi\Timesheets.WebApi.csproj", "{32C7FBB1-4273-4751-B44F-BFE23372AFCD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Timesheets.Domain", "Timesheets\Timesheets.Domain\Timesheets.Domain.csproj", "{4CDCC704-EEB7-4CF2-95C1-90BF8F2B98A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Timesheets.Storage", "Timesheets\Timesheets.Storage\Timesheets.Storage.csproj", "{9F68F3B8-9EB6-46D8-8058-4CD5A0B69C22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,20 +17,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9BA68ABD-893F-46B1-96A8-B6A312C0B8CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BA68ABD-893F-46B1-96A8-B6A312C0B8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9BA68ABD-893F-46B1-96A8-B6A312C0B8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BA68ABD-893F-46B1-96A8-B6A312C0B8CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32C7FBB1-4273-4751-B44F-BFE23372AFCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{32C7FBB1-4273-4751-B44F-BFE23372AFCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32C7FBB1-4273-4751-B44F-BFE23372AFCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32C7FBB1-4273-4751-B44F-BFE23372AFCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CDCC704-EEB7-4CF2-95C1-90BF8F2B98A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CDCC704-EEB7-4CF2-95C1-90BF8F2B98A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CDCC704-EEB7-4CF2-95C1-90BF8F2B98A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CDCC704-EEB7-4CF2-95C1-90BF8F2B98A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F68F3B8-9EB6-46D8-8058-4CD5A0B69C22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F68F3B8-9EB6-46D8-8058-4CD5A0B69C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F68F3B8-9EB6-46D8-8058-4CD5A0B69C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F68F3B8-9EB6-46D8-8058-4CD5A0B69C22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{32C7FBB1-4273-4751-B44F-BFE23372AFCD} = {352FFBE1-A251-4908-B19E-F29BC0F42EFB}
+		{4CDCC704-EEB7-4CF2-95C1-90BF8F2B98A8} = {352FFBE1-A251-4908-B19E-F29BC0F42EFB}
+		{9F68F3B8-9EB6-46D8-8058-4CD5A0B69C22} = {352FFBE1-A251-4908-B19E-F29BC0F42EFB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F336FB86-7A34-48FA-891E-FAB07275078D}
