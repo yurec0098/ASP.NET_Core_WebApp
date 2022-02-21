@@ -22,21 +22,14 @@ namespace Timesheets.WebApi.Controllers
 		public async Task<ActionResult<IEnumerable<Employee>>> GetEmployee(CancellationToken cancellationToken)
 		{
 			var employees = await _context.GetAllEntityAsync(cancellationToken);
-			return await employees.ToListAsync();
+			return await employees.ToListAsync(cancellationToken);
 		}
 
 		// GET: api/[controller]/5
 		[HttpGet("{id}")]
 		public async Task<ActionResult<Employee>> GetEmployee(int id, CancellationToken cancellationToken)
 		{
-			var employee = await _context.GetEntityAsync(id, cancellationToken);
-
-			if (employee == null)
-			{
-				return NotFound();
-			}
-
-			return employee;
+			return await _context.GetEntityAsync(id, cancellationToken) ?? (ActionResult<Employee>)NotFound();
 		}
 
 		// PUT: api/[controller]/5
@@ -45,9 +38,7 @@ namespace Timesheets.WebApi.Controllers
 		public async Task<IActionResult> PutEmployee(int id, Employee employee, CancellationToken cancellationToken)
 		{
 			if (id != employee.Id)
-			{
 				return BadRequest();
-			}
 
 			try
 			{
@@ -56,13 +47,9 @@ namespace Timesheets.WebApi.Controllers
 			catch (DbUpdateConcurrencyException)
 			{
 				if (!await _context.EntityExistsAsync(id, cancellationToken))
-				{
 					return NotFound();
-				}
 				else
-				{
 					throw;
-				}
 			}
 
 			return NoContent();
@@ -82,13 +69,10 @@ namespace Timesheets.WebApi.Controllers
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteEmployee(int id, CancellationToken cancellationToken)
 		{
-			var employee = await _context.GetEntityAsync(id, cancellationToken);
-			if (employee == null)
-			{
+			if (await _context.GetEntityAsync(id, cancellationToken) is Employee employee)
+				await _context.DeleteEntityAsync(employee, cancellationToken);
+			else
 				return NotFound();
-			}
-
-			await _context.DeleteEntityAsync(employee, cancellationToken);
 
 			return NoContent();
 		}
