@@ -20,7 +20,7 @@ namespace Timesheets.Storage
 		}
 
 		/// <summary> Get Entity by ID </summary>
-		public async Task<TEntity> GetEntityAsync(int id, CancellationToken cancellationToken)
+		public async Task<TEntity?> GetEntityAsync(int id, CancellationToken cancellationToken)
 		{
 			return await _context.Set<TEntity>().FindAsync(new object[] { id }, cancellationToken);
 		}
@@ -45,7 +45,7 @@ namespace Timesheets.Storage
 			await _context.SaveChangesAsync(cancellationToken);
 		}
 
-		/// <summary> Delete Entity by ID </summary>
+		/// <summary> Delete Entity </summary>
 		public async Task DeleteEntityAsync(TEntity entity, CancellationToken cancellationToken)
 		{
 			_context.Set<TEntity>().Remove(entity);

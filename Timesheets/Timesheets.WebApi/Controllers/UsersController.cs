@@ -1,5 +1,4 @@
-﻿#nullable disable
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Timesheets.Domain;
 using Timesheets.Storage;
@@ -72,11 +71,11 @@ namespace Timesheets.WebApi.Controllers
 		// POST: api/[controller]
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
-		public async Task<ActionResult<User>> PostUser(User usser, CancellationToken cancellationToken)
+		public async Task<ActionResult<User>> PostUser(User user, CancellationToken cancellationToken)
 		{
-			await _context.AddEntityAsync(usser, cancellationToken);
+			await _context.AddEntityAsync(user, cancellationToken);
 
-			return CreatedAtAction("GetUser", new { id = usser.Id }, usser);
+			return CreatedAtAction("GetUser", new { id = user.Id }, user);
 		}
 
 		// DELETE: api/[controller]/5

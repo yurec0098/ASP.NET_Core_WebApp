@@ -2,7 +2,7 @@
 {
 	public interface IRepositoryDB<T>
 	{
-		Task<T> GetEntityAsync(int id, CancellationToken cancellationToken);
+		Task<T?> GetEntityAsync(int id, CancellationToken cancellationToken);
 		Task<IQueryable<T>> GetAllEntityAsync(CancellationToken cancellationToken);
 		Task<bool> EntityExistsAsync(int id, CancellationToken cancellationToken);
 
