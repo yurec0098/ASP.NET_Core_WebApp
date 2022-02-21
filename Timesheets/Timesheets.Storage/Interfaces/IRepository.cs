@@ -1,4 +1,4 @@
-﻿namespace Timesheets.Storage
+﻿namespace Timesheets.Storage.Interfaces
 {
 	public interface IRepository<T>
 	{
