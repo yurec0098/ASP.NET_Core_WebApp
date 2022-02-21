@@ -4,44 +4,31 @@ namespace Timesheets.Storage
 {
 	public class LocalRepositoryPerson : IRepository<Person>
 	{
-		public async Task<Person> FindByIdAsync(int id, CancellationToken cancellationToken)
+		public async Task<Person?> FindByIdAsync(int id, CancellationToken cancellationToken)
 		{
-			var person = new Person { Id = -1 };
-
-			await Task.Run(() =>
+			return await Task.Run(() =>
 			{
-				if (data.FirstOrDefault(p => p.Id == id) is Person _person)
-					person = _person;
+				return data.FirstOrDefault(p => p.Id == id);
 			}, cancellationToken);
-
-			return person;
 		}
 
 		public async Task<IQueryable<Person>> FindByNameAsync(GetParams getParams, string name, CancellationToken cancellationToken)
 		{
-			var result = new Person[] { }.AsQueryable();
-
-			await Task.Run(() =>
+			return await Task.Run(() =>
 			{
-				result = data.FindAll(p => p.FirstName.Contains(name) || p.LastName.Contains(name))
+				return data.FindAll(p => p.FirstName.Contains(name) || p.LastName.Contains(name))
 					.Skip((getParams.PageNumber - 1) * getParams.PageSize).
 					Take(getParams.PageSize).AsQueryable();
 			}, cancellationToken);
-
-			return result;
 		}
 
 		public async Task<IQueryable<Person>> FindAllAsync(GetParams getParams, CancellationToken cancellationToken)
 		{
-			var result = new Person[] { }.AsQueryable();
-
-			await Task.Run(() =>
+			return await Task.Run(() =>
 			{
-				result = data.Skip((getParams.PageNumber - 1) * getParams.PageSize).
+				return data.Skip((getParams.PageNumber - 1) * getParams.PageSize).
 					Take(getParams.PageSize).AsQueryable();
 			}, cancellationToken);
-
-			return result;
 		}
 
 
@@ -58,8 +45,7 @@ namespace Timesheets.Storage
 		{
 			await Task.Run(async () =>
 			{
-				Person person = await FindByIdAsync(entity.Id, cancellationToken);
-				if (person.Id > 0)
+				if(await FindByIdAsync(entity.Id, cancellationToken) is Person person)
 				{
 					person.FirstName = entity.FirstName;
 					person.LastName = entity.LastName;
@@ -70,14 +56,9 @@ namespace Timesheets.Storage
 			}, cancellationToken);
 		}
 
-		public async Task DeleteAsync(int id, CancellationToken cancellationToken)
+		public async Task DeleteAsync(Person person, CancellationToken cancellationToken)
 		{
-			await Task.Run(async () =>
-			{
-				Person person = await FindByIdAsync(id, cancellationToken);
-				if (person.Id > 0)
-					data.Remove(person);
-			}, cancellationToken);
+			await Task.Run(() => data.Remove(person), cancellationToken);
 		}
 
 

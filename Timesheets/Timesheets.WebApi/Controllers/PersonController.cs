@@ -17,42 +17,50 @@ namespace Timesheets.WebApi.Controllers
 
 
 		[HttpGet("persons/{id}")]
-		public async Task<IActionResult> GetById([FromRoute] int id, CancellationToken cancellationToken)
+		public async Task<ActionResult<Person>> GetById([FromRoute] int id, CancellationToken cancellationToken)
 		{
-			var result = await _repository.FindByIdAsync(id, cancellationToken);
-			if (result is Person person)
-			{
-				if (person.Id == -1)
-					return NotFound();
-				return Ok(person);
-			}
-
-			return BadRequest(result);
+			return await _repository.FindByIdAsync(id, cancellationToken) ?? (ActionResult<Person>)NotFound();
 		}
 
 		[HttpGet("persons/search")]
-		public async Task<IQueryable<Person>> FindByName([FromQuery] string searchTerm, CancellationToken cancellationToken, [FromQuery] int skip = 1, [FromQuery] int take = 50)
+		public async Task<IEnumerable<Person>> FindByName([FromQuery] string searchTerm, CancellationToken cancellationToken, [FromQuery] int skip = 1, [FromQuery] int take = 50)
 		{
 			return await _repository.FindByNameAsync(new GetParams { PageNumber = skip, PageSize = take }, searchTerm, cancellationToken);
 		}
 
 		[HttpGet("persons")]
-		public async Task<IQueryable<Person>> FindAll([FromQuery] int skip, [FromQuery] int take, CancellationToken cancellationToken)
+		public async Task<IEnumerable<Person>> FindAll([FromQuery] int skip, [FromQuery] int take, CancellationToken cancellationToken)
 		{
 			return await _repository.FindAllAsync(new GetParams { PageNumber = skip, PageSize = take }, cancellationToken);
 		}
 
 
 		[HttpPost("persons")]
-		public async Task AddAsync([FromBody] Person request, CancellationToken cancellationToken) =>
-			 await _repository.AddAsync(request, cancellationToken);
+		public async Task<ActionResult<Person>> AddAsync([FromBody] Person request, CancellationToken cancellationToken)
+		{
+			await _repository.AddAsync(request, cancellationToken);
+			return CreatedAtAction("GetById", new { id = request.Id }, request);
+		}
 
 		[HttpPut("persons")]
-		public async Task UpdateAsync([FromBody] Person request, CancellationToken cancellationToken) =>
+		public async Task<IActionResult> UpdateAsync([FromBody] Person request, CancellationToken cancellationToken)
+		{
+			if (await _repository.FindByIdAsync(request.Id, cancellationToken) == null)
+				return NotFound();
+			
 			await _repository.UpdateAsync(request, cancellationToken);
+			return NoContent();
+		}
 
 		[HttpDelete("persons/{id}")]
-		public async Task DeleteAsync([FromRoute] int id, CancellationToken cancellationToken) =>
-			await _repository.DeleteAsync(id, cancellationToken);
+		public async Task<IActionResult> DeleteAsync([FromRoute] int id, CancellationToken cancellationToken)
+		{
+			if(await _repository.FindByIdAsync(id, cancellationToken) is Person person)
+				await _repository.DeleteAsync(person, cancellationToken);
+			else
+				return NotFound();
+
+			return NoContent();
+		}
 	}
 }
